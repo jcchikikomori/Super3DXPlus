@@ -33,6 +33,8 @@ You can't. Any pre-built binaries you see online are unauthorized distributions 
 
 Download the code, open a terminal in its folder and run `./setup.sh`. It installs the Python packages by itself, and tells you the one `apt install` command to run if a compiler or SDL2 is missing.
 
+**Prefer Docker?** The `Dockerfile` in this repository installs the same tools and builds the game in a container, so nothing has to be installed on your machine: see `docs/DOCKER.md`.
+
 **Raspberry Pi and Android** (after the setup above)
 
 Run **`setup-pi.bat`** / `./setup-pi.sh` to build and install the game on a Raspberry Pi over your network, or **`setup-android.bat`** / `./setup-android.sh` to build one self-contained Android app (and install it on a phone connected by USB). They download what they need and ask before anything big. No PC at all? `docs/ANDROID_ON_DEVICE.md` builds everything on the Android device itself, in Termux.

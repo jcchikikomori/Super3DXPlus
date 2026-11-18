@@ -1,0 +1,37 @@
+# Super3DX+ in Docker: see docs/DOCKER.md.
+#
+#   GAME_DIR="/path/to/your/game/folder" docker compose run --rm build
+#
+# GAME_DIR is your own copy of the arcade game (a folder with 'main' and 'data/').
+# The project folder is mounted at /src, so the build's results land in it.
+services:
+  build:
+    build:
+      context: .
+      target: build
+    image: super3dxplus:latest
+    environment:
+      GAME_DIR: ${GAME_DIR:-/game}
+    volumes:
+      - .:/src
+      - ${GAME_DIR:-/game}:/game:ro
+      - ./out:/out
+    command: ["build", "/game"]
+    stdin_open: true
+    tty: true
+
+  play:
+    build:
+      context: .
+      target: runtime
+    image: super3dxplus-runtime:latest
+    volumes:
+      - ./Super3DXPlus-Export:/game
+    command: ["run"]
+    stdin_open: true
+    tty: true
+    # a GPU: uncomment these two
+    # devices:
+    #   - /dev/dri:/dev/dri
+    # group_add:
+    #   - video

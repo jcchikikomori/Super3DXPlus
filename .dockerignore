@@ -1,0 +1,32 @@
+# The image only needs the sources and the tools; everything below is either
+# huge, machine-specific or copyrighted game data that must never enter an image.
+
+# converted game data and build output (gitignored, gigabytes)
+data/
+build/
+Super3DXPlus-*/
+Super3DXPlus-*.apk
+Super3DXPlus-*.old/
+
+# the toolchain the setup downloads (gitignored)
+/.super3dx/
+
+# a dump of the game dropped next to the sources (gitignored)
+/main
+/etc/
+/ext/
+/libso/
+/modules/
+
+# version control and editor noise
+.git/
+.gitignore
+.github/
+.vscode/
+.idea/
+**/__pycache__/
+**/*.pyc
+
+# docker files themselves
+Dockerfile
+.dockerignore

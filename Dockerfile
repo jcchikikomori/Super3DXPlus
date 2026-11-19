@@ -81,6 +81,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         binutils \
         pkg-config \
+        squashfs-tools \
+        file \
         libsdl2-dev \
         libegl1-mesa-dev \
         libgles2-mesa-dev \
@@ -96,6 +98,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         xz-utils \
     && rm -rf /var/lib/apt/lists/*
+
+# appimagetool, for `s3dx appimage`: the one self-contained file to move the
+# game to another machine (a Steam Deck, for instance).
+RUN mkdir -p /opt/appimage \
+    && curl -fsSL -o /opt/appimage/appimagetool-x86_64.AppImage \
+        https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage \
+    && chmod 0755 /opt/appimage/appimagetool-x86_64.AppImage
 
 # The Python packages the converters need (capstone, unicorn, pillow, numpy).
 RUN python3 -m venv /opt/venv

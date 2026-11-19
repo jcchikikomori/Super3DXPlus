@@ -46,3 +46,4 @@ __pycache__/
 /Super3DXPlus-*/
 /Super3DXPlus-*.old/
 /Super3DXPlus-*.apk
+*.AppImage

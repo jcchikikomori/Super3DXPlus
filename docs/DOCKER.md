@@ -62,6 +62,8 @@ docker run --rm -it -v "$PWD":/src -v "/path/to/dump":/game:ro super3dxplus data
 docker run --rm -it -v "$PWD":/src -v "/path/to/dump":/game:ro super3dxplus refresh /game
 docker run --rm -it -v "$PWD":/src super3dxplus exe
 docker run --rm -it -v "$PWD":/src super3dxplus package
+docker run --rm -it -v "$PWD":/src super3dxplus bundle
+docker run --rm -it -v "$PWD":/src super3dxplus appimage
 docker run --rm -it -v "$PWD":/src super3dxplus run
 docker run --rm -it -v "$PWD":/src super3dxplus shell
 ```
@@ -75,7 +77,12 @@ docker run --rm -it -v "$PWD":/src super3dxplus shell
 - `refresh` is the quick update after a `git pull`: the generated sources and
   the player, no data conversion.
 - `exe` and `package` are the two halves of the player build, on their own.
-- `run` plays the game from `build/linux/package/` (it needs a screen; in a
+- `bundle` copies the SDL2 the player needs into the game folder, so it runs on
+  a machine without SDL2 (a Steam Deck).
+- `appimage` packs the game into one self-contained `.AppImage` (the data goes
+  inside; the saves go to `~/.local/share/Super3DXPlus`). See
+  `docs/STEAMDECK.md` for putting it on a Steam Deck.
+- `run` plays the game from `Super3DXPlus-<region>/` (it needs a screen; in a
   headless container it uses Xvfb and Mesa's software renderer).
 - `shell` gives you a shell in the image, to look around or run the tools by
   hand.
@@ -99,6 +106,10 @@ Or use the small runtime image, which has all of that:
 docker build --target runtime -t super3dxplus-runtime .
 docker run --rm -it -v "$PWD/Super3DXPlus-Export":/game super3dxplus-runtime
 ```
+
+For a machine that should need nothing at all (a Steam Deck), `s3dx bundle`
+carries SDL2 inside the folder and `s3dx appimage` makes one self-contained
+file; how to put either on a Steam Deck is in `docs/STEAMDECK.md`.
 
 With a GPU, pass `--device /dev/dri` and `--group video` to the container.
 
